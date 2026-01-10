@@ -14,6 +14,7 @@
 \usepackage{pdfpages}
 \usepackage{siunitx}
 \usepackage{booktabs}
+\usepackage{xurl}
 % \usepackage{svg}
 
 % for German quotation marks
@@ -44,49 +45,55 @@
 	
 	% Titelseite
 	\begin{titlepage}
-		\begin{minipage}[c]{0.49\textwidth}
-			\raggedright
-			\includegraphics[width=0.4\textwidth]{TH_Mannheim_Logo_RGB_blau.png}
-		\end{minipage}
-		\hfill
-		\begin{minipage}[c]{0.49\textwidth}
-			\raggedleft
-			\includegraphics[width=0.4\textwidth]{logo.png}
-		\end{minipage}
-		\\[1cm]
+		% \begin{minipage}[c]{0.49\textwidth}
+		% 	\raggedright
+		% 	\includegraphics[width=0.4\textwidth]{TH_Mannheim_Logo_RGB_blau.png}
+		% \end{minipage}
+		% \hfill
+		% \begin{minipage}[c]{0.49\textwidth}
+		% 	\raggedleft
+		% 	\includegraphics[width=0.4\textwidth]{logo.png}
+		% \end{minipage}
+		% \\[1cm]
 		\centering
-		\textbf{\LARGE{Entwurf, Entwicklung und Realisierung eines einbeinigen Krabbelroboters zur Integration und Erprobung von KI-Algorithmen}} \\[2cm]
+		{\LARGE \textbf{Der Crawler - Ein Reinforcement-Learning-Krabbelroboter}\par}
+		\vfill
 		% {\Large \textbf{Thema der Arbeit}} \\[2cm]
 
-		\includegraphics[width=\textwidth]{photos/crawler_deckblatt.png}
+		\includegraphics[width=\textwidth, height=0.35\textheight, keepaspectratio]{photos/crawler_deckblatt.png}
 		
 		\vfill
+			\textbf{\large Projektteam}\\[1em]
 			\begin{minipage}[t]{0.32\textwidth}
 			    \centering
-			    \textbf{Gregor Niehl} \\
-			    Weinbrennerstraße 7 \\
-			    68723 Mannheim \\
+			    \textbf{Gregor Niehl}
 			\end{minipage}
 			\hfill
 			\begin{minipage}[t]{0.32\textwidth}
 			    \centering
-			    \textbf{Jonathan Kraus} \\
-			    Meersburger Str. 84 \\
-			    68239 Mannheim \\
+			    \textbf{Jonathan Kraus}
 			\end{minipage}
 			\hfill
 			\begin{minipage}[t]{0.32\textwidth}
 			    \centering
-			    \textbf{Pascal Roth} \\
-			    August-Bebel-Straße 79\\
-			    68199 Mannheim \\
+			    \textbf{Pascal Roth}
 			\end{minipage}
 		\vfill
-		
-		\textbf{Abschlussbericht der Kooperationsphase 2024/25} \\
-		Durchgeführt an der Technischen Hochschule Mannheim \\
-		Betreuer: Prof. Dr. Thomas Ihme \\
+
+		\begin{minipage}{0.95\textwidth}
+			\textbf{\large Projektübersicht}\\[0.2cm]
+			\small
+			\textbf{Fragestellung:} Das Projekt befasst sich mit der Optimierung eines einbeinigen Krabbelroboters, der mithilfe von künstlicher Intelligenz selbstständig Fortbewegungsmuster erlernen soll. Ziel war es, die bestehende Mechanik und Software grundlegend zu überarbeiten, um ein robustes und anschauliches Demonstrationsobjekt zu schaffen. \\ 
+			\textbf{Methode:} Der Roboter wurde in Leichtbauweise neu konstruiert und auf das Framework ROS 2 portiert. Ein zentraler methodischer Schwerpunkt lag dabei in der strikten Trennung von Hardware-Ansteuerung und KI-Logik, was eine modulare Steuerung der Servo-Motoren und eine stabile Datenverarbeitung ermöglichte. \\
+			\textbf{Ergebnisse:} Nach erfolgreicher Implementierung des Q-Learning-Algorithmus konnte beobachtet werden, wie der Roboter nach der Trainingsphase erste eigenständige Schritte ausführte. Ein begleitendes Webinterface visualisiert diesen Lernfortschritt nun für Außenstehende in Echtzeit. \\
+			\textbf{Diskussion:} Das Projekt zeigt, dass die Kombination aus modularer Bauweise und moderner Softwarearchitektur ein stabiles System für KI-Experimente schafft. Zukünftig bietet der "Crawler" eine ideale Basis, um weitere Sensoren oder komplexere Bewegungsmodelle zu testen. \\
+		\end{minipage}
 		\vfill
+		
+		\textbf{Dokumentation Jugend Forscht 2026} \\
+		% Durchgeführt an der Technischen Hochschule Mannheim \\
+		% Betreuer: Prof. Dr. Thomas Ihme \\
+		% \vfill
 		
 		\today
 	\end{titlepage}
