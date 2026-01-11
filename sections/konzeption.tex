@@ -1,13 +1,15 @@
-\section{Konzeption des neuen Krabbelroboters}
+\section{Vorgehensweise, Materialien und Methoden}
 \label{sec:konzeption}
 
-Im folgenden Abschnitt wird der Zustand des Projekts bei der Übernahme beschrieben, sowie die Zielsetzungen, die sich daraus ergeben. Außerdem werden die Vorgehensweisen dargelegt, die für die Umsetzung jener Ziele geplant sind.
+Im folgenden Abschnitt wird der Zustand des Projekts bei Übernahme sowie die daraus abgeleiteten Zielsetzungen beschrieben. Darauf aufbauend werden die gewählten technischen Methoden und Materialien erläutert.
+
+Die Projektbearbeitung erfolgte in einem iterativen Entwicklungsprozess, aufgeteilt in die Bereiche Hardware und Software, was eine parallele Umsetzung und kontinuierliche Integrationstests ermöglichte. Zur Versionierung und Dokumentation wurde eine GitHub-Organisation genutzt, die den eigenen Anteil an der Entwicklung transparent nachvollziehbar macht.
 
 \subsection{Mechanischer Aufbau und Konstruktionsprinzipien}
 
 \subsubsection{Analyse des Ausgangsmodells}
 
-Zu Beginn des Projekts wird der einbeinige Krabbelroboter des Vorgängerprojekts in Bezug auf Software, Hardware und Funktionsumfang analysiert. Dazu wird besonders die Dokumentation des Vorgängerprojekts angesehen \cite{vorgängerprojekt}. 
+Zu Beginn des Projekts wird der einbeinige Krabbelroboter des Legacy-Projekts in Bezug auf Software, Hardware und Funktionsumfang analysiert. Dazu wird besonders die Dokumentation des Vorgängerprojekts angesehen \cite{vorgängerprojekt}. 
 
 Der aktuelle Zustand des Roboters zum Zeitpunkt der Übernahme ist in Abbildung \ref{fig:crawler_old} dargestellt und ist für die folgenden Abschnitte relevant.
 
@@ -45,13 +47,9 @@ Der Roboter wurde dabei einer mechanischen Strukturanalyse unterzogen. Er bestan
 
 \subsubsection{CAD-gestütztes Design und 3D-Druck}
 
-Die Bauteile und das Gehäuse des Roboters wurden mithilfe eines CAD-gestützten Entwicklungsprozesses mit \emph{Autodesk Fusion 360} \cite{fusion360} erstellt. Die digitale Modellierung ermöglichte eine präzise Gestaltung der Bauteile, die direkt überprüft werden konnten. Für den Austausch und die Weiterverarbeitung (insbesondere mit Herrn Prof. Dr. Ihme) wurden die Modelle als standardisierte STEP-Dateien exportiert.
+Die Bauteile und das Gehäuse wurden in einem CAD-gestützten Prozess mit \emph{Autodesk Fusion 360} \cite{fusion360} konstruiert. Die digitale Modellierung ermöglichte eine präzise Gestaltung und direkte Überprüfung der Komponenten, die für den Datenaustausch, insbesondere mit Herrn Prof. Dr. Ihme, als standardisierte STEP-Dateien exportiert wurden.
 
-Der anschließende 3D-Druck der Komponenten erlaubte eine einfache, schnelle und kostengünstige Fertigung. Durch das additive Herstellungsverfahren wurde nur das tatsächlich benötigte Material eingesetzt, was sowohl Gewicht als auch Ressourcen sparte. Besonders vorteilhaft am Prozess ist zudem, dass keine komplexen Werkzeuge oder Maschinen notwendig sind. Für die Entwicklung wird lediglich ein Computer benötigt, wodurch es wesentlich unkomplizierter ist, Änderungen umzusetzen.
-
-Der kombinierte CAD- und 3D-Druckprozess unterstützt somit eine iterative und flexible Entwicklung, wie sie im Prototypenbau von mobilen Robotern besonders hilfreich ist.
-
-Abbildung \ref{fig:cad_3d_druck} zeigt diesen Prozess.
+Der 3D-Druck ermöglichte anschließend eine kostengünstige und ressourcenschonende Fertigung, da durch das additive Verfahren nur das tatsächlich benötigte Material verwendet wurde, was zudem im Vergleich zum Legacy-Projekt Gewicht spart. Dieser Prozess erlaubt eine iterative und flexible Entwicklung ohne komplexe Werkzeuge, was für den Prototypenbau ideal ist (siehe Abbildung \ref{fig:cad_3d_druck}).
 
 \begin{figure}[h]
   \centering
@@ -66,10 +64,9 @@ Abbildung \ref{fig:cad_3d_druck} zeigt diesen Prozess.
 
 Ziel der Weiterentwicklung des übernommenen einbeinigen Krabbelroboters war es, ein modular aufgebautes, leichtes und anschaulich gestaltetes System zu schaffen, das sowohl für Demonstrations- als auch Auswertungszwecke geeignet ist. Dabei wurden folgende Anforderungen von uns anfangs festgelegt:
 
-\textbf{Must-Have}
 \begin{itemize}
   \item \textbf{Modularität (Basic):} Das Austauschen oder Erweitern zentraler Komponenten (insbesondere des Akkus) sollte erleichtert werden, etwa durch Steck- oder Schraubverbindungen.
-  \item \textbf{Offenes Design:} Für Demonstrationszwecke müssen alle Komponenten sichtbar und gut zugänglich montiert sein, um einen schnellen Überblick über das System zu ermöglichen.
+  \item \textbf{Offenes Design:} Für Demonstrationszwecke sollten alle Komponenten sichtbar und gut zugänglich montiert sein, um einen schnellen Überblick über das System zu ermöglichen.
   \item \textbf{Verbesserter Schwerpunkt:} Damit das Bein möglichst wenig Last stemmen muss, sollte ein Schwerpunkt nah an der Radachse angestrebt werden.
   \item \textbf{Leichtbauweise:} Ein geringes Gewicht unterstützt die Energieeffizienz und erleichtert die Steuerung durch kleinere Antriebsmotoren.
   \item \textbf{Mechanische Kompatibilität:} Es muss auf die Verwendung standardisierter Bauteile (z.\,B. M3/M4-Schrauben) geachtet werden, um einfache (De-)Montage und Erweiterbarkeit sicherzustellen.
@@ -201,7 +198,7 @@ Eine später hinzugefügte Bedienoberfläche ist die Möglichkeit, in die Auswah
 
 Für die Umsetzung des Backends verwenden wir den simplen Python-Webserver \emph{Flask} \cite{flask}, der auch bereits im Vorgängerprojekt verwendet wurde. Das Webinterface ist mit der UI-Library \emph{React} \cite{react} implementiert, welche einen modernen komponentenbasierten Workflow bietet und von Grund auf reaktiv ist, was die Anzeige der Echtzeitdaten maßgeblich erleichtert. Für eine moderne UI-Entwicklung verwenden wir \emph{Tailwind CSS} \cite{tailwindcss} als Styling-Framework, \emph{React Router} \cite{reactrouter} als React-Framework und \emph{Chart.js} \cite{chartjs} für dynamische Diagramme.
 
-Im Anhang, S. \pageref{fig:webinterface_screenshots}f, sind einige Screenshots abgebildet.
+% Im Anhang, S. \pageref{fig:webinterface_screenshots}f, sind einige Screenshots abgebildet.
 
 \subsection{Hardware}
 
@@ -213,24 +210,17 @@ Dieses Unterkapitel beschreibt die Hardware des neuen Krabbelroboters, die aus d
 
 Der Prozessor des Crawlers ist ein Raspberry Pi 4 Model B, der gleiche Single Board Computer (SBC) wie beim Vorgängerprojekt.
 
-Zu Anfang unseres Projekts hatten wir lange Zeit Schwierigkeiten, die neuere Ubuntu-Version auf dem SBC zu installieren. Nach langem Debuggen mit verschiedenen Linux-Distributionen, Netzteilen und SD-Karten kamen wir zu dem Schluss, dass das Modell des Vorgängerprojekts zu Schaden gekommen war, seit wir es übernommen hatten, möglicherweise im Transport.
+% Zu Anfang unseres Projekts hatten wir lange Zeit Schwierigkeiten, die neuere Ubuntu-Version auf dem SBC zu installieren. Nach langem Debuggen mit verschiedenen Linux-Distributionen, Netzteilen und SD-Karten kamen wir zu dem Schluss, dass das Modell des Vorgängerprojekts zu Schaden gekommen war, seit wir es übernommen hatten, möglicherweise im Transport.
 
 \textbf{Die Sensoren}
 
-Zur Messung von Drehzahlunterschieden an den Rädern des Krabbelroboters werden zwei Inkrementalgeber eingesetzt. Die Inkrementalgeber des Legacy-Projektes, das Modell \textit{MEC22} der Firma PWB \cite{pwb_me16_datasheet_2011}, werden weiterverwendet. Die Sensoren ermöglichen eine zuverlässige Erfassung von Bewegungen und sind dabei kosteneffizient.
-
-Die gewählte Ausführung bietet eine Auflösung von 500 Zählimpulsen pro Umdrehung (Counts per Revolution, CPR). Damit lässt sich selbst eine sehr feine Wegauflösung realisieren. Bei einem Raddurchmesser von \qty{5}{\centi\m} entspricht ein Impuls etwa \qty{0,31}{\milli\m} Bewegung – ausreichend, um auch kleinste Bewegungen des Roboters zu erfassen.
-
-Die Versorgung erfolgt direkt über den Raspberry Pi, der die notwendige Betriebsspannung zur Verfügung stellt. Die elektrische Verbindung wird über einen 5-poligen Molex-Stecker realisiert.
+Zur Messung von Drehzahlunterschieden an den Rädern werden die zwei Inkrementalgeber des Typs \textit{MEC22} (PWB) \cite{pwb_me16_datasheet_2011} aus dem Legacy-Projekt weiterverwendet. Mit einer Auflösung von 500 Zählimpulsen pro Umdrehung (Counts per Revolution, CPR) und einem Raddurchmesser von \qty{5}{\centi\m} entspricht ein Impuls ca. \qty{0,31}{\milli\m} zurückgelegte Strecke. Dies ermöglicht eine präzise Erfassung kleinster Bewegungen für das Reinforcement Learning. Die Stromversorgung erfolgt direkt über den Raspberry Pi.
 
 \textbf{Die Aktoren}
 
-Für die Bewegung des Beins wurden wie im ursprünglichen Projekt Servomotoren des Typs \textit{Dynamixel XL430-W250-T} von Robotis \cite{robotis_xl430} eingesetzt. Die Wiederverwendung dieser Motoren ermöglichte eine einfache Integration in das bestehende System und reduzierte den Entwicklungsaufwand. 
+Für die Beinbewegung wurden Servomotoren vom Typ \textit{Dynamixel XL430-W250-T} (Robotis) \cite{robotis_xl430} eingesetzt. Sie bieten ein gutes Verhältnis von Drehmoment (bis 1{,}5\,Nm) zu Energieverbrauch sowie präzise Positionssteuerung und sind über eindeutige IDs adressierbar.
 
-Die Servos verfügen über ein gutes Verhältnis von Drehmoment (bis zu 1{,}5\,Nm) zu Energieverbrauch und erlauben eine präzise Positionssteuerung. Jeder Motor kann über eine eindeutige ID adressiert werden, was eine Kommunikation über ein gemeinsames Bus-System erlaubt. Zur Datenübertragung wird das TTL-Protokoll verwendet.
-
-Für die Verbindung zwischen den Motoren und dem Steuerrechner kommt der \textit{U2D2-Connector} von Robotis \cite{robotis_u2d2} zum Einsatz. Dieser unterstützt sowohl TTL- als auch RS-485-Verbindungen und ermöglicht die Kommunikation über USB mit dem Steuergerät. Zur stabilen Energieversorgung dient ein \textit{U2D2 Power Hub} \cite{robotis_u2d2_power_hub}, der mehrere Motoren gleichzeitig mit Spannung versorgen kann.
-
+Die Verbindung zum Steuerrechner erfolgt via TTL-Protokoll über den \textit{U2D2-Connector} \cite{robotis_u2d2}, der per USB angeschlossen wird. Ein \textit{U2D2 Power Hub} \cite{robotis_u2d2_power_hub} gewährleistet dabei die stabile Spannungsversorgung aller Motoren.
 
 \subsubsection{Spannungsversorgung}
 
@@ -244,19 +234,3 @@ t_{\text{Betrieb, neu}} &= \frac{\qty{1500}{\milli\ampere\hour}}{\qty{1070}{\mil
 \end{align*}
 
 \qty{1070}{\milli\ampere} sind dabei der maximal gemessene Strom (bei der Bewegung der Motoren) und nicht der Normalzustand.
-
-% \subsubsection{Integration und Inbetriebnahme der Hardware}
-
-% \subsection{Methodisches Vorgehen}
-
-% \subsubsection{Iterative Entwicklung und Arbeitsteilung}
-
-% Die Entwicklung des Roboters wurde in zwei Arbeitsbereiche aufgeteilt: Hardware und Software. Durch diese Aufteilung konnten Aufgaben parallel bearbeitet werden.
-
-% Die Umsetzung erfolgte schrittweise, wobei immer Integrationstests durchgeführt wurden. Rückfragen wurden entweder direkt im Team geklärt oder in den regelmäßigen Meetings mit unserem Betreuer, Herr Prof. Dr. Ihme, gestellt. 
-
-% \subsubsection{Dokumentation und Versionskontrolle}
-
-% Zur Organisation der Arbeit wurde eine gemeinsame GitHub-Organisation mit mehreren Repositories eingerichtet. Darin wurden CAD-Dateien, Quellcode und Dokumentationsinhalte versioniert abgelegt. Änderungen konnten so nachvollzogen und im Team abgestimmt werden.
-
-% Die Repositories dienten außerdem als zentrale Anlaufstelle für ältere Zwischenstände. Die Dokumentation einzelner Arbeitsschritte erfolgte zusätzlich intern in einem zentralen Notizen-Dokument.
