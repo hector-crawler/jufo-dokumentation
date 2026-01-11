@@ -1,25 +1,36 @@
 \textit{Alle Photos und Graphiken in diesem Dokument wurden, wenn nicht anders gekennzeichnet, von Mitgliedern des Teams erstellt.}
 
-\section*{Abstract}
-\addcontentsline{toc}{section}{Abstract}
+% \section*{Abstract}
+% \addcontentsline{toc}{section}{Abstract}
 
 % Zusammenfassung (in Englisch); \\ Vier Sätze: 1. worum geht es allgemein, Kontext des Problems; 2. welches Problem wird hier bearbeitet; 3. wie wird das Problem im Wesentlichen gelöst; 4. was ist das hauptsächliche Ergebnis; insg. nicht mehr als 10 Zeilen
 
-We continued development on a robot that learns to crawl with a two-jointed leg using reinforcement learning algorithms. Most of our work was concentrated on improving existing aspects of the project rather than adding new features. These aspects included both the mechanical design of the robot as well as the software running on it. As a result, all project components are reimplemented from scratch and improved compared to the preceding project.
+% We continued development on a robot that learns to crawl with a two-jointed leg using reinforcement learning algorithms. Most of our work was concentrated on improving existing aspects of the project rather than adding new features. These aspects included both the mechanical design of the robot as well as the software running on it. As a result, all project components are reimplemented from scratch and improved compared to the preceding project.
 
-\section{Einleitung}
+% \section{Einleitung}
 
-Dieses Projekt wurde im Rahmen der Kooperationsphase des Hector-Seminars im Schuljahr 2024/25 durchgeführt. 
-Ziel ist es, einen bestehenden einbeinigen Krabbelroboter in softwareseitiger und mechanischer Hinsicht zu überarbeiten und als funktionierendes Demonstrationsobjekt zu realisieren.
+% Dieses Projekt wurde im Rahmen der Kooperationsphase des Hector-Seminars im Schuljahr 2024/25 durchgeführt. 
+% Ziel ist es, einen bestehenden einbeinigen Krabbelroboter in softwareseitiger und mechanischer Hinsicht zu überarbeiten und als funktionierendes Demonstrationsobjekt zu realisieren.
 
-Die Aufgabenstellung ist dabei bewusst eher frei gehalten. Der Fokus liegt auf der Entwicklung einer steuerbaren Softwarearchitektur mit ROS und der mechanischen Neukonstruktion des Krabbelsroboters.
+% Die Aufgabenstellung ist dabei bewusst eher frei gehalten. Der Fokus liegt auf der Entwicklung einer steuerbaren Softwarearchitektur mit ROS und der mechanischen Neukonstruktion des Krabbelsroboters.
 
-Der Rest des Artikels gliedert sich wie folgt:
+% Der Rest des Artikels gliedert sich wie folgt:
 
-\begin{itemize}
-	\item \textbf{Grundlagen:} Einführung in vorwiegend softwareseitige Konzepte, die später vorausgesetzt werden
-	\item \textbf{Konzeption des neuen Krabbelroboters:} Zielsetzungen und Vorgehensweisen
-	\item \textbf{Realisierung des neuen Krabbelroboters:} Besprechung von unvorhergesehenen Hürden in der Umsetzung
-	\item \textbf{Diskussion:} Rückblick und Bewertung der Arbeit, Ausblick für die Zukunft
-	\item \textbf{Danksagung, Quellen, Literatur}
-\end{itemize}
+% \begin{itemize}
+% 	\item \textbf{Grundlagen:} Einführung in vorwiegend softwareseitige Konzepte, die später vorausgesetzt werden
+% 	\item \textbf{Konzeption des neuen Krabbelroboters:} Zielsetzungen und Vorgehensweisen
+% 	\item \textbf{Realisierung des neuen Krabbelroboters:} Besprechung von unvorhergesehenen Hürden in der Umsetzung
+% 	\item \textbf{Diskussion:} Rückblick und Bewertung der Arbeit, Ausblick für die Zukunft
+% 	\item \textbf{Danksagung, Quellen, Literatur}
+% \end{itemize}
+
+\section{Fachliche Kurzfassung}
+Die fachliche Zielsetzung dieses Projekts war die Realisierung eines funktionsfähigen Demonstrationsobjekts, das den Lernprozess einer Künstlichen Intelligenz physisch sichtbar macht. Im Mittelpunkt stand die Frage, wie ein einbeiniger Roboter ohne vorprogrammierte Bewegungsabläufe allein durch Reinforcement Learning eine zielgerichtete Vorwärtsbewegung erlernen kann.
+
+Methodisch wurde das Vorgängermodell, hier Legacy-Projekt genannt, grundlegend überarbeitet. Durch den Einsatz von CAD-Design und 3D-Druck wurde eine deutliche Gewichtsreduktion erreicht, was die mechanische Belastung verringerte. Softwareseitig wurde das System auf das ROS 2 Framework portiert. Hierbei wurde eine strikte Trennung zwischen der Hardware-Steuerung und der KI-Logik umgesetzt, um eine modulare Erweiterbarkeit und eine effiziente Entwicklung im Team zu ermöglichen.
+
+Als Lernalgorithmus wurde Q-Learning eingesetzt. Die Ergebnisse zeigen, dass der Roboter nach der Trainingsphase in der Lage ist, die beiden Gelenke seines Beins stabil zu koordinieren. Die daraus resultierende Vorwärtsbewegung ist aufgrund technischer Limitierungen und einer bewussten softwareseitigen Begrenzung zur Schonung der Servomotoren langsam, stellt jedoch eine, unter Berücksichtigung der stochastischen Natur des Lernverfahrens, reproduzierbare Lösung des Bewegungsproblems dar.
+
+Zur Analyse des Lernverhaltens wurde ein Webinterface auf Basis von React entwickelt. Dieses visualisiert die Zustandsübergänge und die Aktualisierung der Q-Table in Echtzeit. Durch die Bereitstellung dieser Daten über eine Websocket-Verbindung wird der normalerweise abstrakte Lernprozess ("Black Box") transparent und für den Betrachter nachvollziehbar gemacht. Zusätzlich dient das Interface als zentrale Steuereinheit, über welche die Hyperparameter des Algorithmus, bspw. die Learning-Rate oder der Discount-Factor, im laufenden Betrieb angepasst werden können, was eine effiziente Durchführung systematischer Versuchsreihen ermöglicht.
+
+\section{Motivation und Fragestellung}
