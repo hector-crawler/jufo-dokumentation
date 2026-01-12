@@ -17,3 +17,4 @@ exclude.py
 gliederung.txt
 _minted-*/
 _minted/
+.vscode/settings.json

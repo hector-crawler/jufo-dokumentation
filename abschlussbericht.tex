@@ -1,6 +1,7 @@
 \documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
+\usepackage{setspace}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{geometry}
@@ -25,7 +26,7 @@
 \addto\extrasngerman{\sisetup{locale = DE}}
 
 % Seitenränder
-\geometry{left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\geometry{left=2.5cm,right=2.5cm,top=2cm,bottom=2cm} % für Jugend forscht
 
 % Bibliographie-Kommando
 \newcommand{\bib}{\bibliographystyle{plainnat}\bibliography{bibliography}}
@@ -38,7 +39,7 @@
 \rfoot{\thepage}
 
 % Abschnittsabstand
-\setlength{\parskip}{1em}
+\setlength{\parskip}{0.5em}
 \setlength{\parindent}{0pt}
 
 \begin{document}
@@ -101,11 +102,15 @@
 	% Inhaltsverzeichnis
 	\tableofcontents
 	\newpage
+
+	\fontfamily{ptm}\selectfont % Times New Roman
+	\fontsize{11pt}{13.2pt}\selectfont
+	\onehalfspacing % 1.5 Zeilenabstand
 	
-	\include{sections/abstract-und-einleitung}
-	\include{sections/grundlagen}
-	\include{sections/konzeption}
-	\include{sections/umsetzung} % Ergebnisse, JuFo
-	\include{sections/schluss}
+	\input{sections/abstract-und-einleitung}
+	\input{sections/grundlagen}
+	\input{sections/konzeption}
+	\input{sections/umsetzung} % Ergebnisse, JuFo
+	\input{sections/schluss}
 	\include{sections/anhang-etc}
 \end{document}
