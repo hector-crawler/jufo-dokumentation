@@ -17,3 +17,11 @@ exclude.py
 gliederung.txt
 _minted-*/
 _minted/
+.vscode/
+.vscode/settings.json
+vscode/
+vscode/settings.json
+.vscode/*
+vscode/*
+.vscode
+vscode
