@@ -1,3 +1,3 @@
-# Hector-Seminar Abschlussbericht: *Entwurf, Entwicklung und Realisierung eines einbeinigen Krabbelroboters zur Integration und Erprobung von KI-Algorithmen*
+# Jugend Forscht Dokumentation: *Der Crawler - Ein Reinforcement-Learning-Krabberoboter*
 
-→ [Open PDF](https://hector-crawler.github.io/abschlussarbeit/abschlussbericht.pdf)
+→ [Open PDF](https://hector-crawler.github.io/jufo-dokumentation/abschlussbericht.pdf)
