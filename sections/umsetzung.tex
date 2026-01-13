@@ -1,6 +1,8 @@
 \section{Ergebnisse}
 \label{sec:realisierung}
 
+Dieses Kapitel beschreibt die Ergebnisse der Hardware- und Softwareentwicklung des Krabbelroboters.
+
 % Dieses Kapitel gibt einen kompakten Überblick über die praktische Umsetzung des neuen Krabbelroboters. Die wichtigsten Arbeitsschritte, Herausforderungen und \linebreak Lösungswege von der Übernahme des Legacy-Projekts bis zur Entwicklung der neuen Hardware werden dargestellt.
 
 % \subsection{Übernahme des Legacy-Projekts}
@@ -11,31 +13,35 @@
 
 % Im Zuge des Neuschreibens der Codebase sollte auch die auf dem Raspberry Pi installierte Ubuntu-Version angehoben werden. Als wir allerdings versuchten, den Microcontroller auf dem alten Roboter zu starten, hing dieser stets in einer Boot-Schleife, startete also nicht das Betriebssystem. Nach wiederum einem Tag des Debuggens mit verschiedenen Betriebssystemen, Speichermedien, Netzteilen und Monitorkabeln war mit dem alten Raspberry Pi immer noch kein Betriebbsystem zu starten. Wir kamen zu dem Schluss, dass der spezifische Raspberry Pi auf dem alten Roboter zu Schaden gekommen sein musste, seit wir das letzte Mal damit gearbeitet hatten, vermutlich im Transport. Freundlicherweise konnte uns Prof. Dr. Ihme ein Ersatzmodell aus dem Inventar der Technischen Hochschule Mannheim beschaffen, sodass wir zeitig an dem Projekt weiterarbeiten konnten.
 
-\subsection{Hardware}
+\subsection{Finale Hardware-Konfiguration}
 
-Ausgehend von der theoretischen und praktischen Analyse des bestehenden Roboters (siehe Abschnitt~\ref{sec:konzeption}) wurde ein neues mechanisches Konzept für das Chassis des Krabbelroboters 
-entwickelt. Ziel war es, die Komponenten platzsparend, gewichtsoptimiert und modular anzuordnen um die Zugänglichkeit zu erweitern.
+Das neue mechanische Konzept führte zu einem funktionsfähigen Chassis, das die Anforderungen an Modularität und Gewicht deutlich besser erfüllt als das Vorgängermodell. Tabelle \ref{tab:vergleich-hardware} fasst die wichtigsten Verbesserungen der Hardware zusammen.
 
-Zunächst erfolgte eine Recherche der Maße der Bauteile. Auf Basis dieser Daten wurde eine grobe Anordnung in Form einer Handskizze konzipiert, um ein erstes Gefühl für die Platzverhältnisse zu bekommen.
+\begin{table}
+	\captionsetup{justification=centering}
+	\caption{Vergleich der Hardware-Komponenten des alten und neuen Krabbelroboters}
+	\centering
+	\begin{tabularx}{\textwidth}{ X l l l }
+		\toprule
+		{Parameter} & {Legacy-Projekt} & {Crawler (neu)} & {Verbesserung} \\
+		% \cmidrule{3-6}
+		% Zustand Bein & Zustand Fuß & \mc{Bein hoch} & \mc{Bein runter} & \mc{Fuß hoch} & \mc{Fuß runter} \\
+		\midrule
+		Gesamtgewicht & 1{,}32\,kg & 0{,}675\,kg & -48,86\,\% \\
+		\addlinespace
+		Akkugewicht & 0{,}310\,kg & 0{,}066\,kg & -78,7\,\% \\
+		\addlinespace
+		Struktur & unzugänglich & Zwei funktionale Ebenen & Modularer Zugriff \\
+        \addlinespace
+        Materialeffizienz & Plexiglas & Infill-optimierter 3D-Druck & Ressourcenschonend \\
+        \addlinespace
+        Akkuwechsel (Zeit) & 2 min & 30 s & -75\,\% \\
+        Bauteilwechsel (Zeit), z.B. Drehzahlsensor & ca. 30 min - 1 h & ca. 5 min & wartungsfreundlich \\
+		\bottomrule
+	\end{tabularx}
+    \label{tab:vergleich-hardware}
+\end{table}
 
-Das daraus abgeleitete 3D-Modell wurde mithilfe von Autodesk Fusion 360 erstellt. Die Konstruktion wurde in zwei funktionale Ebenen aufgeteilt: 
-eine untere Ebene zur zur Steuerung der Motoren und eine obere Ebene zur Steuerung der restlichen Bauteile. 
-Die Ebenen wurden als separate Körper modelliert, um spätere Anpassungen zu erleichtern.
+Die Aufteilung in zwei funktionale Ebenen (unten: Inkrementalgeber und Servomotoren, oben: Steuerungselektronik und Akku) bestätigte die Erwartung einer verbesserten Zugänglichkeit. Im Gegensatz zum Legacy-Modell, bei dem die obere Ebene für Wartungsarbeiten teilweise zerstört werden musste, erlaubt die neue Konstruktion den Austausch zentraler Komponenten in akzeptabler Zeit durch einfache Schraubverbindungen und Kabelklammern ohne Lötstellen. 
 
-Der erste 3D-Druck diente zur Kalibrierung der Maße und Überprüfung der Passgenauigkeit. Dabei traten mehrere Fehler auf: 
-Einige Schraubenlöcher waren falsch positioniert, die Inkrementalgeber lagen zu nah beieinander, und die Höhe der oberen Griffe erwies sich als zu gering, 
-da die Akkumaße zunächst nur geschätzt worden waren.
-
-Da der alte Roboter bis dahin noch softwareseitig genutzt wurde, konnte der mechanische Umbau erst nach Abschluss der entsprechenden Software-Tests (z.\,B. Implementierung des Q-Learnings). 
-Anschließend wurde das CAD-Modell überarbeitet und an die gewonnenen Erkenntnisse angepasst.
-
-Der zweite Druckvorgang verlief erfolgreich: Die Bauteile passten wie geplant, alle Komponenten konnten montiert werden. 
-Der Aufbau des neuen Roboters war damit abgeschlossen und bildete die Grundlage für die weitere softwareseitige Integration.
-Abbildung~\ref{fig:crawler_side} zeigt den Krabbelroboter in der Seitenansicht zum Projektabschluss.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{crawler_side.jpeg}
-    \caption{Seitliche Ansicht des Krabbelroboters zum Projektabschluss.}
-    \label{fig:crawler_side}
-\end{figure}
+Die Hypothese, dass eine Leichtbauweise die mechanische Belastung, insbesondere auf die Servomotoren, reduziert, wurde durch die Reduzierung des Gesamtgewichts um fast 50\,\% bestätigt. Dies ermöglicht eine stabilere Koordination der Gelenke, da das Bein deutlich weniger Eigenlast stemmen muss.

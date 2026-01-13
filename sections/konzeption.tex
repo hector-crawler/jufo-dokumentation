@@ -9,7 +9,7 @@ Die Projektbearbeitung erfolgte in einem iterativen Entwicklungsprozess, aufgete
 
 \subsubsection{Analyse des Ausgangsmodells}
 
-Zu Beginn des Projekts wird der einbeinige Krabbelroboter des Legacy-Projekts in Bezug auf Software, Hardware und Funktionsumfang analysiert. Dazu wird besonders die Dokumentation des Vorgängerprojekts angesehen \cite{vorgängerprojekt}. 
+Zu Beginn des Projekts wird der einbeinige Krabbelroboter des Legacy-Projekts in Bezug auf Software, Hardware und Funktionsumfang analysiert. Dazu wird besonders die Dokumentationen der Vorgängerprojekte angesehen \cite{vorgängerprojekt}. 
 
 Der aktuelle Zustand des Roboters zum Zeitpunkt der Übernahme ist in Abbildung \ref{fig:crawler_old} dargestellt und ist für die folgenden Abschnitte relevant.
 
@@ -22,7 +22,7 @@ Der aktuelle Zustand des Roboters zum Zeitpunkt der Übernahme ist in Abbildung 
 
 \textbf{Mechanische Analyse}
 
-Der Roboter wurde dabei einer mechanischen Strukturanalyse unterzogen. Er bestand zum Zeitpunkt der Übernahme aus einer Basis (Chassis) mit einem Bein (Motor 1) und einer Fuß bzw. Greifer (Motor 2). Die drei Bauteile sind mit je einem Rotationsgelenk, also insgesamt zwei Gelenken, miteinander verbunden. Die Gelenke wurden durch Dynamixel-Servos dargestellt. Der Aufbau lässt sich also als Kinematische Kette darstellen.
+Der Roboter wurde dabei einer mechanischen Strukturanalyse unterzogen. Er bestand zum Zeitpunkt der Übernahme aus einer Basis (Chassis) und einem zweigliedrigen Bein, welche über zwei Servomotoren (Rotationsgelenke) als kinematische Kette verbunden sind.
 
 % Daher konnte die Anzahl $n$ an Freiheitsgraden (DoF) des Roboters mit der Formel von Grübler berechnet werden. Ein Freiheitsgrad ist dabei \glqq jede verbleibende unabhängige Bewegungsfreiheit eines Systems\grqq \ \cite{robotik_scriptum}.
 % \begin{align}
@@ -45,11 +45,13 @@ Der Roboter wurde dabei einer mechanischen Strukturanalyse unterzogen. Er bestan
 
 Der Funktionsumfang des Roboters beschränkte sich auf die manuelle Steuerung der Motoren über eine graphische Benutzeroberfläche (GUI).
 
-\subsubsection{CAD-gestütztes Design und 3D-Druck}
+\subsubsection{CAD-gestütztes Design und 3D-Druck} % TO-DO: in "grundlagen" verschieben?
 
 Die Bauteile und das Gehäuse wurden in einem CAD-gestützten Prozess mit \emph{Autodesk Fusion 360} \cite{fusion360} konstruiert. Die digitale Modellierung ermöglichte eine präzise Gestaltung und direkte Überprüfung der Komponenten, die für den Datenaustausch, insbesondere mit Herrn Prof. Dr. Ihme, als standardisierte STEP-Dateien exportiert wurden.
 
-Der 3D-Druck ermöglichte anschließend eine kostengünstige und ressourcenschonende Fertigung, da durch das additive Verfahren nur das tatsächlich benötigte Material verwendet wurde, was zudem im Vergleich zum Legacy-Projekt Gewicht spart. Dieser Prozess erlaubt eine iterative und flexible Entwicklung ohne komplexe Werkzeuge, was für den Prototypenbau ideal ist (siehe Abbildung \ref{fig:cad_3d_druck}).
+% Der 3D-Druck ermöglichte anschließend eine kostengünstige und ressourcenschonende Fertigung, da durch das additive Verfahren nur das tatsächlich benötigte Material verwendet wurde, was zudem im Vergleich zum Legacy-Projekt Gewicht spart. Dieser Prozess erlaubt eine iterative und flexible Entwicklung ohne komplexe Werkzeuge, was für den Prototypenbau ideal ist (siehe Abbildung \ref{fig:cad_3d_druck}).
+
+Die Fertigung erfolgte mittels Fused Deposition Modeling (FDM), was eine schnelle Iteration der Prototypen ermöglichte. Abbildung \ref{fig:cad_3d_druck} zeigt das gerenderte 3D-Modell sowie ein Foto der oberen Ebene nach dem 3D-Druck.
 
 \begin{figure}[h]
   \centering
@@ -61,6 +63,7 @@ Der 3D-Druck ermöglichte anschließend eine kostengünstige und ressourcenschon
 \end{figure}
 
 \subsubsection{Gestaltungsschwerpunkte}
+\label{subsubsec:gestaltungsschwerpunkte}
 
 Ziel der Weiterentwicklung des übernommenen einbeinigen Krabbelroboters war es, ein modular aufgebautes, leichtes und anschaulich gestaltetes System zu schaffen, das sowohl für Demonstrations- als auch Auswertungszwecke geeignet ist. Dabei wurden folgende Anforderungen von uns anfangs festgelegt:
 
@@ -72,6 +75,70 @@ Ziel der Weiterentwicklung des übernommenen einbeinigen Krabbelroboters war es,
 \end{itemize}
 
 Diese Zielkriterien bildeten die Grundlage für die Auswahl der Bauteile einschließlich Akku und das mechanische Design des weiterentwickelten Roboters.
+
+\subsection{Bau des neuen Crawlers} % verschoben von unten
+
+% Dieses Unterkapitel beschreibt die Hardware des neuen Krabbelroboters, die aus den Komponenten des Vorgängerprojekts übernommen wurde, sowie die neuen Komponenten, die für die Weiterentwicklung ausgewählt wurden. Zusätzlich wird der letztendliche mechanische Aufbau des Crawlers erläutert.
+Dieses Unterkapitel beschreibt die übernommenen und neuen Hardwarekomponenten sowie den mechanischen Aufbau des Krabbelroboters.
+
+\subsubsection{Auswahl der Hauptkomponenten}
+
+\textbf{Der Microcontroller}
+
+Der Prozessor des Crawlers ist ein Raspberry Pi 4 Model B, der gleiche Single Board Computer (SBC) wie beim Vorgängerprojekt.
+
+% Zu Anfang unseres Projekts hatten wir lange Zeit Schwierigkeiten, die neuere Ubuntu-Version auf dem SBC zu installieren. Nach langem Debuggen mit verschiedenen Linux-Distributionen, Netzteilen und SD-Karten kamen wir zu dem Schluss, dass das Modell des Vorgängerprojekts zu Schaden gekommen war, seit wir es übernommen hatten, möglicherweise im Transport.
+
+\textbf{Die Sensoren}
+
+Zur Messung von Drehzahlunterschieden an den Rädern werden die zwei Inkrementalgeber des Typs \textit{MEC22} der Firma PWB \cite{pwb_me16_datasheet_2011} aus dem Legacy-Projekt weiterverwendet. Mit einer Auflösung von 500 Zählimpulsen pro Umdrehung (Counts per Revolution, CPR) und einem Raddurchmesser von \qty{5}{\centi\m} entspricht ein Impuls ca. \qty{0,31}{\milli\m} zurückgelegte Strecke. Dies ermöglicht eine präzise Erfassung kleinster Bewegungen für das Reinforcement Learning. Die Stromversorgung erfolgt direkt über den Raspberry Pi.
+
+\textbf{Die Aktoren}
+
+Für die Beinbewegung wurden Servomotoren vom Typ \textit{Dynamixel XL430-W250-T} (Robotis) \cite{robotis_xl430} eingesetzt. Sie bieten ein gutes Verhältnis von Drehmoment (bis 1{,}5\,Nm) zu Energieverbrauch (Leerlaufstrom ca. \qty{40}{\milli\ampere}) sowie präzise Positionssteuerung und sind über eindeutige IDs adressierbar.
+
+Die Verbindung zum Steuerrechner erfolgt via TTL-Protokoll über den \textit{U2D2-Connector} \cite{robotis_u2d2}, der per USB an den Raspberry Pi angeschlossen wird. Ein \textit{U2D2 Power Hub} \cite{robotis_u2d2_power_hub} gewährleistet dabei die stabile Spannungsversorgung aller Motoren. Vergleiche dazu auch das nachfolgende Unterkapitel zur Spannunsversorgung. 
+
+\subsubsection{Spannungsversorgung}
+
+Da der alte Akku, ein \textit{XCell LiPo Cracker CAR} \cite{xcell_akku} mit zwei Zellen, \qty{7.4}{\volt} und \qty{5400}{\milli\ampere\hour}, durch sein hohes Gewicht von \qty{310}{\gram} ca. \qty{25}{\percent} des Gesamtgewichts des Roboters ausmachte, wurde ein leichterer Akku gesucht.
+
+Der neu ausgewählte \textit{Gens ace Modellbau-Akkupack (LiPo)} \cite{gens_ace_akku} ist mit seinen ebenfalls \qty{7.4}{\volt} Ausgangsspannung ähnlich aufgebaut, wiegt allerdings nur noch \qty{66}{\gram} und ist deutlich kompakter. Aufgrund des geplanten Einsatzes als Demonstrationsroboter ist auch die damit verbundene geringere Laufzeit kein Problem.
+
+\begin{align*}
+t_{\text{Betrieb, alt}} &= \frac{\qty{5400}{\milli\ampere\hour}}{\qty{1070}{\milli\ampere}} \approx \qty{5}{\hour} \\
+t_{\text{Betrieb, neu}} &= \frac{\qty{1500}{\milli\ampere\hour}}{\qty{1070}{\milli\ampere}} \approx \qty{1.4}{\hour}
+\end{align*}
+
+\qty{1070}{\milli\ampere} sind dabei der maximal gemessene Strom (bei der Bewegung der Motoren) und nicht der Normalzustand.
+
+\subsubsection{Mechanische Umsetzung} % verschoben aus "umsetzung" bzw. "ergebnisse"
+
+Basierend auf den in Abschnitt \ref{subsubsec:gestaltungsschwerpunkte} definierten Zielen wurde die praktische Umsetzung des Chassis eingeleitet.
+
+Zunächst erfolgte eine Recherche der Maße der Bauteile. Auf Basis dieser Daten wurde eine grobe Anordnung in Form einer Handskizze konzipiert, um ein erstes Gefühl für die Platzverhältnisse zu bekommen.
+
+Die Konstruktion wurde in zwei funktionale Ebenen aufgeteilt: 
+Eine untere Ebene zur Steuerung der Motoren und eine obere Ebene zur Steuerung der restlichen Bauteile. 
+Die Ebenen wurden als separate Körper modelliert, um spätere Anpassungen zu erleichtern.
+
+Der erste 3D-Druck diente zur Kalibrierung der Maße und Überprüfung der Passgenauigkeit. Dabei traten mehrere Fehler auf: 
+Einige Schraubenlöcher waren falsch positioniert, die Inkrementalgeber lagen zu nah beieinander, und die Höhe der oberen Griffe erwies sich als zu gering, 
+da die Akkumaße zunächst nur geschätzt worden waren.
+
+Da der alte Roboter bis dahin noch softwareseitig genutzt wurde, konnte der mechanische Umbau erst nach Abschluss der entsprechenden Software-Tests (z.\,B. Implementierung des Q-Learnings) erfolgen. 
+Anschließend wurde das CAD-Modell überarbeitet und an die gewonnenen Erkenntnisse angepasst.
+
+Nach den Korrekturen konnten alle Bauteile montiert werden.
+Der Aufbau des neuen Roboters war damit abgeschlossen und bildete die Grundlage für die weitere softwareseitige Integration.
+Abbildung~\ref{fig:crawler_side} zeigt den Krabbelroboter in der Seitenansicht zum Projektabschluss.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{crawler_side.jpeg}
+    \caption{Seitliche Ansicht des Krabbelroboters zum Projektabschluss.}
+    \label{fig:crawler_side}
+\end{figure}
 
 \subsection{Software}
 
@@ -183,38 +250,3 @@ Eine später hinzugefügte Bedienoberfläche ist die Möglichkeit, in die Auswah
 Für die Umsetzung des Backends verwenden wir den simplen Python-Webserver \emph{Flask} \cite{flask}, der auch bereits im Vorgängerprojekt verwendet wurde. Das Webinterface ist mit der UI-Library \emph{React} \cite{react} implementiert, welche einen modernen komponentenbasierten Workflow bietet und von Grund auf reaktiv ist, was die Anzeige der Echtzeitdaten maßgeblich erleichtert. Für eine moderne UI-Entwicklung verwenden wir \emph{Tailwind CSS} \cite{tailwindcss} als Styling-Framework, \emph{React Router} \cite{reactrouter} als React-Framework und \emph{Chart.js} \cite{chartjs} für dynamische Diagramme.
 
 % Im Anhang, S. \pageref{fig:webinterface_screenshots}f, sind einige Screenshots abgebildet.
-
-\subsection{Hardware}
-
-Dieses Unterkapitel beschreibt die Hardware des neuen Krabbelroboters, die aus den Komponenten des Vorgängerprojekts übernommen wurde, sowie die neuen Komponenten, die für die Weiterentwicklung ausgewählt wurden.
-
-\subsubsection{Auswahl der Hauptkomponenten}
-
-\textbf{Der Microcontroller}
-
-Der Prozessor des Crawlers ist ein Raspberry Pi 4 Model B, der gleiche Single Board Computer (SBC) wie beim Vorgängerprojekt.
-
-% Zu Anfang unseres Projekts hatten wir lange Zeit Schwierigkeiten, die neuere Ubuntu-Version auf dem SBC zu installieren. Nach langem Debuggen mit verschiedenen Linux-Distributionen, Netzteilen und SD-Karten kamen wir zu dem Schluss, dass das Modell des Vorgängerprojekts zu Schaden gekommen war, seit wir es übernommen hatten, möglicherweise im Transport.
-
-\textbf{Die Sensoren}
-
-Zur Messung von Drehzahlunterschieden an den Rädern werden die zwei Inkrementalgeber des Typs \textit{MEC22} (PWB) \cite{pwb_me16_datasheet_2011} aus dem Legacy-Projekt weiterverwendet. Mit einer Auflösung von 500 Zählimpulsen pro Umdrehung (Counts per Revolution, CPR) und einem Raddurchmesser von \qty{5}{\centi\m} entspricht ein Impuls ca. \qty{0,31}{\milli\m} zurückgelegte Strecke. Dies ermöglicht eine präzise Erfassung kleinster Bewegungen für das Reinforcement Learning. Die Stromversorgung erfolgt direkt über den Raspberry Pi.
-
-\textbf{Die Aktoren}
-
-Für die Beinbewegung wurden Servomotoren vom Typ \textit{Dynamixel XL430-W250-T} (Robotis) \cite{robotis_xl430} eingesetzt. Sie bieten ein gutes Verhältnis von Drehmoment (bis 1{,}5\,Nm) zu Energieverbrauch sowie präzise Positionssteuerung und sind über eindeutige IDs adressierbar.
-
-Die Verbindung zum Steuerrechner erfolgt via TTL-Protokoll über den \textit{U2D2-Connector} \cite{robotis_u2d2}, der per USB angeschlossen wird. Ein \textit{U2D2 Power Hub} \cite{robotis_u2d2_power_hub} gewährleistet dabei die stabile Spannungsversorgung aller Motoren.
-
-\subsubsection{Spannungsversorgung}
-
-Da der alte Akku, ein \textit{XCell LiPo Cracker CAR} \cite{xcell_akku} mit zwei Zellen, \qty{7.4}{\volt} und \qty{5400}{\milli\ampere\hour}, durch sein hohes Gewicht von \qty{310}{\gram} ca. \qty{25}{\percent} des Gesamtgewichts des Roboters ausmachte, wurde ein leichterer Akku gesucht.
-
-Der neu ausgewählte \textit{Gens ace Modellbau-Akkupack (LiPo)} \cite{gens_ace_akku} ist mit seinen ebenfalls \qty{7.4}{\volt} Ausgangsspannung ähnlich aufgebaut, wiegt allerdings nur noch \qty{66}{\gram} und ist deutlich kompakter. Aufgrund des geplanten Einsatzes als Demonstrationsroboter ist auch die damit verbundene geringere Laufzeit kein Problem.
-
-\begin{align*}
-t_{\text{Betrieb, alt}} &= \frac{\qty{5400}{\milli\ampere\hour}}{\qty{1070}{\milli\ampere}} \approx \qty{5}{\hour} \\
-t_{\text{Betrieb, neu}} &= \frac{\qty{1500}{\milli\ampere\hour}}{\qty{1070}{\milli\ampere}} \approx \qty{1.4}{\hour}
-\end{align*}
-
-\qty{1070}{\milli\ampere} sind dabei der maximal gemessene Strom (bei der Bewegung der Motoren) und nicht der Normalzustand.
