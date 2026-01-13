@@ -1,6 +1,8 @@
 \section{Ergebnisse}
 \label{sec:realisierung}
 
+Dieses Kapitel beschreibt die Ergebnisse der Hardware- und Softwareentwicklung des Krabbelroboters.
+
 % Dieses Kapitel gibt einen kompakten Überblick über die praktische Umsetzung des neuen Krabbelroboters. Die wichtigsten Arbeitsschritte, Herausforderungen und \linebreak Lösungswege von der Übernahme des Legacy-Projekts bis zur Entwicklung der neuen Hardware werden dargestellt.
 
 % \subsection{Übernahme des Legacy-Projekts}
@@ -11,4 +13,30 @@
 
 % Im Zuge des Neuschreibens der Codebase sollte auch die auf dem Raspberry Pi installierte Ubuntu-Version angehoben werden. Als wir allerdings versuchten, den Microcontroller auf dem alten Roboter zu starten, hing dieser stets in einer Boot-Schleife, startete also nicht das Betriebssystem. Nach wiederum einem Tag des Debuggens mit verschiedenen Betriebssystemen, Speichermedien, Netzteilen und Monitorkabeln war mit dem alten Raspberry Pi immer noch kein Betriebbsystem zu starten. Wir kamen zu dem Schluss, dass der spezifische Raspberry Pi auf dem alten Roboter zu Schaden gekommen sein musste, seit wir das letzte Mal damit gearbeitet hatten, vermutlich im Transport. Freundlicherweise konnte uns Prof. Dr. Ihme ein Ersatzmodell aus dem Inventar der Technischen Hochschule Mannheim beschaffen, sodass wir zeitig an dem Projekt weiterarbeiten konnten.
 
-\subsection{Hardware}
+\subsection{Finale Hardware-Konfiguration}
+
+Das neue mechanische Konzept führte zu einem funktionsfähigen Chassis, das die Anforderungen an Modularität und Gewicht signifikant besser erfüllt als das Vorgängermodell. Tabelle \ref{tab:vergleich-hardware} fasst die wichtigsten Verbesserungen der Hardware zusammen.
+
+\begin{table}
+	\captionsetup{justification=centering}
+	\caption{Vergleich der Hardware-Komponenten des alten und neuen Krabbelroboters}
+	\centering
+	\begin{tabular}{ llll }
+		\toprule
+		{Parameter} & {Legacy-Projekt} & {Crawler (neu)} & {Verbesserung} \\
+		% \cmidrule{3-6}
+		% Zustand Bein & Zustand Fuß & \mc{Bein hoch} & \mc{Bein runter} & \mc{Fuß hoch} & \mc{Fuß runter} \\
+		\midrule
+		Gesamtgewicht & 1{,}32\,kg & 0{,}675\,kg & - 48,86\,\% \\
+		\addlinespace
+		Akkugewicht & 0{,}310\,kg & 0{,}066\,kg & - 78,7\,\% \\
+		\addlinespace
+		Struktur & unzugänglich & Zwei funktionale Ebenen & Modularer Zugriff \\
+		\bottomrule
+	\end{tabular}
+    \label{tab:vergleich-hardware}
+\end{table}
+
+Die Aufteilung in zwei funktionale Ebenen (unten: Inkrementalgeber und Servomotoren, oben: Steuerungselektronik und Akku) bestätigte die Erwartung einer verbesserten Zugänglichkeit. Im Gegensatz zum Legacy-Modell, bei dem die obere Ebene für Wartungsarbeiten teilweise zerstört werden musste, erlaubt die neue Konstruktion den Austausch zentraler Komponenten in akzeptabler Zeit durch einfache Schraubverbindungen und Kabelklammern ohne Lötstellen. 
+
+Die Hypothese, dass eine Leichtbauweise die mechanische Belastung, insbesondere auf die Servomotoren, reduziert, wurde durch die Reduzierung des Gesamtgewichts um fast 50\,\% bestätigt. Dies ermöglicht eine stabilere Koordination der Gelenke, da das Bein deutlich weniger Eigenlast stemmen muss.
