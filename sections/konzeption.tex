@@ -91,11 +91,11 @@ Der Prozessor des Crawlers ist ein Raspberry Pi 4 Model B, der gleiche Single Bo
 
 \textbf{Die Sensoren}
 
-Zur Messung von Drehzahlunterschieden an den Rädern werden die zwei Inkrementalgeber des Typs \textit{MEC22} (PWB) \cite{pwb_me16_datasheet_2011} aus dem Legacy-Projekt weiterverwendet. Mit einer Auflösung von 500 Zählimpulsen pro Umdrehung (Counts per Revolution, CPR) und einem Raddurchmesser von \qty{5}{\centi\m} entspricht ein Impuls ca. \qty{0,31}{\milli\m} zurückgelegte Strecke. Dies ermöglicht eine präzise Erfassung kleinster Bewegungen für das Reinforcement Learning. Die Stromversorgung erfolgt direkt über den Raspberry Pi.
+Zur Messung von Drehzahlunterschieden an den Rädern werden die zwei Inkrementalgeber des Typs \textit{MEC22} der Firma PWB \cite{pwb_me16_datasheet_2011} aus dem Legacy-Projekt weiterverwendet. Mit einer Auflösung von 500 Zählimpulsen pro Umdrehung (Counts per Revolution, CPR) und einem Raddurchmesser von \qty{5}{\centi\m} entspricht ein Impuls ca. \qty{0,31}{\milli\m} zurückgelegte Strecke. Dies ermöglicht eine präzise Erfassung kleinster Bewegungen für das Reinforcement Learning. Die Stromversorgung erfolgt direkt über den Raspberry Pi.
 
 \textbf{Die Aktoren}
 
-Für die Beinbewegung wurden Servomotoren vom Typ \textit{Dynamixel XL430-W250-T} (Robotis) \cite{robotis_xl430} eingesetzt. Sie bieten ein gutes Verhältnis von Drehmoment (bis 1{,}5\,Nm) zu Energieverbrauch sowie präzise Positionssteuerung und sind über eindeutige IDs adressierbar.
+Für die Beinbewegung wurden Servomotoren vom Typ \textit{Dynamixel XL430-W250-T} (Robotis) \cite{robotis_xl430} eingesetzt. Sie bieten ein gutes Verhältnis von Drehmoment (bis 1{,}5\,Nm) zu Energieverbrauch (Leerlaufstrom ca. \qty{40}{\milli\ampere}) sowie präzise Positionssteuerung und sind über eindeutige IDs adressierbar.
 
 Die Verbindung zum Steuerrechner erfolgt via TTL-Protokoll über den \textit{U2D2-Connector} \cite{robotis_u2d2}, der per USB an den Raspberry Pi angeschlossen wird. Ein \textit{U2D2 Power Hub} \cite{robotis_u2d2_power_hub} gewährleistet dabei die stabile Spannungsversorgung aller Motoren. Vergleiche dazu auch das nachfolgende Unterkapitel zur Spannunsversorgung. 
 
