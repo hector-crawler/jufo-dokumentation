@@ -22,7 +22,7 @@ Der aktuelle Zustand des Roboters zum Zeitpunkt der Übernahme ist in Abbildung 
 
 \textbf{Mechanische Analyse}
 
-Der Roboter wurde dabei einer mechanischen Strukturanalyse unterzogen. Er bestand zum Zeitpunkt der Übernahme aus einer Basis (Chassis) mit einem Bein (Motor 1) und einer Fuß bzw. Greifer (Motor 2). Die drei Bauteile sind mit je einem Rotationsgelenk, also insgesamt zwei Gelenken, miteinander verbunden. Die Gelenke wurden durch Dynamixel-Servos dargestellt. Der Aufbau lässt sich also als Kinematische Kette darstellen.
+Der Roboter wurde dabei einer mechanischen Strukturanalyse unterzogen. Er bestand zum Zeitpunkt der Übernahme aus einer Basis (Chassis) und einem zweigliedrigen Bein, welche über zwei Servomotoren (Rotationsgelenke) als kinematische Kette verbunden sind.
 
 % Daher konnte die Anzahl $n$ an Freiheitsgraden (DoF) des Roboters mit der Formel von Grübler berechnet werden. Ein Freiheitsgrad ist dabei \glqq jede verbleibende unabhängige Bewegungsfreiheit eines Systems\grqq \ \cite{robotik_scriptum}.
 % \begin{align}
@@ -49,7 +49,9 @@ Der Funktionsumfang des Roboters beschränkte sich auf die manuelle Steuerung de
 
 Die Bauteile und das Gehäuse wurden in einem CAD-gestützten Prozess mit \emph{Autodesk Fusion 360} \cite{fusion360} konstruiert. Die digitale Modellierung ermöglichte eine präzise Gestaltung und direkte Überprüfung der Komponenten, die für den Datenaustausch, insbesondere mit Herrn Prof. Dr. Ihme, als standardisierte STEP-Dateien exportiert wurden.
 
-Der 3D-Druck ermöglichte anschließend eine kostengünstige und ressourcenschonende Fertigung, da durch das additive Verfahren nur das tatsächlich benötigte Material verwendet wurde, was zudem im Vergleich zum Legacy-Projekt Gewicht spart. Dieser Prozess erlaubt eine iterative und flexible Entwicklung ohne komplexe Werkzeuge, was für den Prototypenbau ideal ist (siehe Abbildung \ref{fig:cad_3d_druck}).
+% Der 3D-Druck ermöglichte anschließend eine kostengünstige und ressourcenschonende Fertigung, da durch das additive Verfahren nur das tatsächlich benötigte Material verwendet wurde, was zudem im Vergleich zum Legacy-Projekt Gewicht spart. Dieser Prozess erlaubt eine iterative und flexible Entwicklung ohne komplexe Werkzeuge, was für den Prototypenbau ideal ist (siehe Abbildung \ref{fig:cad_3d_druck}).
+
+Die Fertigung erfolgte mittels Fused Deposition Modeling (FDM), was eine schnelle Iteration der Prototypen ermöglichte. Abbildung \ref{fig:cad_3d_druck} zeigt das gerenderte 3D-Modell sowie ein Foto der oberen Ebene nach dem 3D-Druck.
 
 \begin{figure}[h]
   \centering
@@ -61,6 +63,7 @@ Der 3D-Druck ermöglichte anschließend eine kostengünstige und ressourcenschon
 \end{figure}
 
 \subsubsection{Gestaltungsschwerpunkte}
+\label{subsubsec:gestaltungsschwerpunkte}
 
 Ziel der Weiterentwicklung des übernommenen einbeinigen Krabbelroboters war es, ein modular aufgebautes, leichtes und anschaulich gestaltetes System zu schaffen, das sowohl für Demonstrations- als auch Auswertungszwecke geeignet ist. Dabei wurden folgende Anforderungen von uns anfangs festgelegt:
 
@@ -75,7 +78,8 @@ Diese Zielkriterien bildeten die Grundlage für die Auswahl der Bauteile einschl
 
 \subsection{Bau des neuen Crawlers} % verschoben von unten
 
-Dieses Unterkapitel beschreibt die Hardware des neuen Krabbelroboters, die aus den Komponenten des Vorgängerprojekts übernommen wurde, sowie die neuen Komponenten, die für die Weiterentwicklung ausgewählt wurden.
+% Dieses Unterkapitel beschreibt die Hardware des neuen Krabbelroboters, die aus den Komponenten des Vorgängerprojekts übernommen wurde, sowie die neuen Komponenten, die für die Weiterentwicklung ausgewählt wurden. Zusätzlich wird der letztendliche mechanische Aufbau des Crawlers erläutert.
+Dieses Unterkapitel beschreibt die übernommenen und neuen Hardwarekomponenten sowie den mechanischen Aufbau des Krabbelroboters.
 
 \subsubsection{Auswahl der Hauptkomponenten}
 
@@ -93,7 +97,7 @@ Zur Messung von Drehzahlunterschieden an den Rädern werden die zwei Inkremental
 
 Für die Beinbewegung wurden Servomotoren vom Typ \textit{Dynamixel XL430-W250-T} (Robotis) \cite{robotis_xl430} eingesetzt. Sie bieten ein gutes Verhältnis von Drehmoment (bis 1{,}5\,Nm) zu Energieverbrauch sowie präzise Positionssteuerung und sind über eindeutige IDs adressierbar.
 
-Die Verbindung zum Steuerrechner erfolgt via TTL-Protokoll über den \textit{U2D2-Connector} \cite{robotis_u2d2}, der per USB angeschlossen wird. Ein \textit{U2D2 Power Hub} \cite{robotis_u2d2_power_hub} gewährleistet dabei die stabile Spannungsversorgung aller Motoren.
+Die Verbindung zum Steuerrechner erfolgt via TTL-Protokoll über den \textit{U2D2-Connector} \cite{robotis_u2d2}, der per USB an den Raspberry Pi angeschlossen wird. Ein \textit{U2D2 Power Hub} \cite{robotis_u2d2_power_hub} gewährleistet dabei die stabile Spannungsversorgung aller Motoren. Vergleiche dazu auch das nachfolgende Unterkapitel zur Spannunsversorgung. 
 
 \subsubsection{Spannungsversorgung}
 
@@ -108,25 +112,24 @@ t_{\text{Betrieb, neu}} &= \frac{\qty{1500}{\milli\ampere\hour}}{\qty{1070}{\mil
 
 \qty{1070}{\milli\ampere} sind dabei der maximal gemessene Strom (bei der Bewegung der Motoren) und nicht der Normalzustand.
 
-\subsubsection{Platzhalter} % verschoben aus "umsetzung" bzw. "ergebnisse"
+\subsubsection{Mechanische Umsetzung} % verschoben aus "umsetzung" bzw. "ergebnisse"
 
-Ausgehend von der theoretischen und praktischen Analyse des bestehenden Roboters (siehe Abschnitt~\ref{sec:konzeption}) wurde ein neues mechanisches Konzept für das Chassis des Krabbelroboters 
-entwickelt. Ziel war es, die Komponenten platzsparend, gewichtsoptimiert und modular anzuordnen um die Zugänglichkeit zu erweitern. % TO-DO: Abschnitt-Verweis anpassen
+Basierend auf den in Abschnitt \ref{subsubsec:gestaltungsschwerpunkte} definierten Zielen wurde die praktische Umsetzung des Chassis eingeleitet.
 
 Zunächst erfolgte eine Recherche der Maße der Bauteile. Auf Basis dieser Daten wurde eine grobe Anordnung in Form einer Handskizze konzipiert, um ein erstes Gefühl für die Platzverhältnisse zu bekommen.
 
-Das daraus abgeleitete 3D-Modell wurde mithilfe von Autodesk Fusion 360 erstellt. Die Konstruktion wurde in zwei funktionale Ebenen aufgeteilt: 
-eine untere Ebene zur zur Steuerung der Motoren und eine obere Ebene zur Steuerung der restlichen Bauteile. 
+Die Konstruktion wurde in zwei funktionale Ebenen aufgeteilt: 
+Eine untere Ebene zur zur Steuerung der Motoren und eine obere Ebene zur Steuerung der restlichen Bauteile. 
 Die Ebenen wurden als separate Körper modelliert, um spätere Anpassungen zu erleichtern.
 
 Der erste 3D-Druck diente zur Kalibrierung der Maße und Überprüfung der Passgenauigkeit. Dabei traten mehrere Fehler auf: 
 Einige Schraubenlöcher waren falsch positioniert, die Inkrementalgeber lagen zu nah beieinander, und die Höhe der oberen Griffe erwies sich als zu gering, 
 da die Akkumaße zunächst nur geschätzt worden waren.
 
-Da der alte Roboter bis dahin noch softwareseitig genutzt wurde, konnte der mechanische Umbau erst nach Abschluss der entsprechenden Software-Tests (z.\,B. Implementierung des Q-Learnings). 
+Da der alte Roboter bis dahin noch softwareseitig genutzt wurde, konnte der mechanische Umbau erst nach Abschluss der entsprechenden Software-Tests (z.\,B. Implementierung des Q-Learnings) erfolgen. 
 Anschließend wurde das CAD-Modell überarbeitet und an die gewonnenen Erkenntnisse angepasst.
 
-Der dritte Druckvorgang verlief erfolgreich: Die Bauteile passten wie geplant, alle Komponenten konnten montiert werden. 
+Nach den Korrekturen konnten alle Bauteile montiert werden.
 Der Aufbau des neuen Roboters war damit abgeschlossen und bildete die Grundlage für die weitere softwareseitige Integration.
 Abbildung~\ref{fig:crawler_side} zeigt den Krabbelroboter in der Seitenansicht zum Projektabschluss.
 
