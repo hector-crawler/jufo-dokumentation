@@ -58,33 +58,39 @@
 		% \end{minipage}
 		% \\[1cm]
 		\centering
-		{\LARGE \textbf{Der Crawler - Ein Reinforcement-Learning-Krabbelroboter}\par}
+		{\huge \textbf{Der Crawler}}\\~\\ % two line breaks
+		{\LARGE \textbf{Ein Reinforcement-Learning-Krabbelroboter}}
+		\par
+
 		\vfill
 		% {\Large \textbf{Thema der Arbeit}} \\[2cm]
 
-		\includegraphics[width=\textwidth, height=0.35\textheight, keepaspectratio]{photos/crawler_deckblatt.png}
+		\includegraphics[width=\textwidth, keepaspectratio]{photos/crawler_deckblatt.png}
 		
 		\vfill
-			\textbf{\large Projektteam}\\[1em]
+			\textbf{\Large Projektteam}\\[1em]
 			\begin{minipage}[t]{0.32\textwidth}
-			    \centering
-			    \textbf{Gregor Niehl}
+				\centering
+				\large
+				\textbf{Gregor Niehl}
 			\end{minipage}
 			\hfill
 			\begin{minipage}[t]{0.32\textwidth}
-			    \centering
-			    \textbf{Jonathan Kraus}
+				\centering
+				\large
+				\textbf{Jonathan Kraus}
 			\end{minipage}
 			\hfill
 			\begin{minipage}[t]{0.32\textwidth}
-			    \centering
-			    \textbf{Pascal Roth}
+				\centering
+				\large
+				\textbf{Pascal Roth}
 			\end{minipage}
 		\vfill
 
 		\begin{minipage}{0.95\textwidth}
 			\textbf{\large Projektübersicht}\\[0.2cm]
-			\small
+			\fontsize{11pt}{14pt}\selectfont
 			\textbf{Fragestellung:} Das Projekt befasst sich mit der Optimierung eines einbeinigen Krabbelroboters, der mithilfe von künstlicher Intelligenz selbstständig Fortbewegungsmuster erlernen soll. Ziel war es, die bestehende Mechanik und Software grundlegend zu überarbeiten, um ein robustes und anschauliches Demonstrationsobjekt zu schaffen. \\ 
 			\textbf{Methode:} Der Roboter wurde in Leichtbauweise neu konstruiert und auf das Framework ROS 2 portiert. Ein zentraler methodischer Schwerpunkt lag dabei in der strikten Trennung von Hardware-Ansteuerung und KI-Logik, was eine modulare Steuerung der Servo-Motoren und eine stabile Datenverarbeitung ermöglichte. \\
 			\textbf{Ergebnisse:} Nach erfolgreicher Implementierung des Q-Learning-Algorithmus konnte beobachtet werden, wie der Roboter nach der Trainingsphase erste eigenständige Schritte ausführte. Ein begleitendes Webinterface visualisiert diesen Lernfortschritt nun für Außenstehende in Echtzeit. \\
