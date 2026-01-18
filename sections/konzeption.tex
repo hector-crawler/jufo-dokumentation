@@ -1,3 +1,5 @@
+\pagebreak
+
 \section{Vorgehensweise, Materialien und Methoden}
 \label{sec:konzeption}
 
@@ -76,6 +78,8 @@ Ziel der Weiterentwicklung des übernommenen einbeinigen Krabbelroboters war es,
 
 Diese Zielkriterien bildeten die Grundlage für die Auswahl der Bauteile einschließlich Akku und das mechanische Design des weiterentwickelten Roboters.
 
+\pagebreak
+
 \subsection{Bau des neuen Crawlers} % verschoben von unten
 
 % Dieses Unterkapitel beschreibt die Hardware des neuen Krabbelroboters, die aus den Komponenten des Vorgängerprojekts übernommen wurde, sowie die neuen Komponenten, die für die Weiterentwicklung ausgewählt wurden. Zusätzlich wird der letztendliche mechanische Aufbau des Crawlers erläutert.
@@ -103,14 +107,14 @@ Die Verbindung zum Steuerrechner erfolgt via TTL-Protokoll über den \textit{U2D
 
 Da der alte Akku, ein \textit{XCell LiPo Cracker CAR} \cite{xcell_akku} mit zwei Zellen, \qty{7.4}{\volt} und \qty{5400}{\milli\ampere\hour}, durch sein hohes Gewicht von \qty{310}{\gram} ca. \qty{25}{\percent} des Gesamtgewichts des Roboters ausmachte, wurde ein leichterer Akku gesucht.
 
-Der neu ausgewählte \textit{Gens ace Modellbau-Akkupack (LiPo)} \cite{gens_ace_akku} ist mit seinen ebenfalls \qty{7.4}{\volt} Ausgangsspannung ähnlich aufgebaut, wiegt allerdings nur noch \qty{66}{\gram} und ist deutlich kompakter. Aufgrund des geplanten Einsatzes als Demonstrationsroboter ist auch die damit verbundene geringere Laufzeit kein Problem.
+Der neu ausgewählte \textit{Gens ace Modellbau-Akkupack (LiPo)} \cite{gens_ace_akku} ist mit seinen ebenfalls \qty{7.4}{\volt} Ausgangsspannung ähnlich aufgebaut, wiegt allerdings nur noch \qty{66}{\gram} und ist deutlich kompakter. Aufgrund des geplanten Einsatzes als Demonstrationsroboter ist die damit verbundene geringere Laufzeit kein Problem. Folgende Überschlagsrechnung zur Laufzeit des Crawlers verwendet den maximal gemessenen Strom bei Bewegung der Motoren\,(\qty{1070}{\milli\ampere}), nicht den Strom bei normalem Betrieb:
 
 \begin{align*}
-t_{\text{Betrieb, alt}} &= \frac{\qty{5400}{\milli\ampere\hour}}{\qty{1070}{\milli\ampere}} \approx \qty{5}{\hour} \\
-t_{\text{Betrieb, neu}} &= \frac{\qty{1500}{\milli\ampere\hour}}{\qty{1070}{\milli\ampere}} \approx \qty{1.4}{\hour}
+t_{\text{Betrieb, alter Akku}} &= \frac{\qty{5400}{\milli\ampere\hour}}{\qty{1070}{\milli\ampere}} \approx \qty{5}{\hour} \\
+t_{\text{Betrieb, neuer Akku}} &= \frac{\qty{1500}{\milli\ampere\hour}}{\qty{1070}{\milli\ampere}} \approx \qty{1.4}{\hour}
 \end{align*}
 
-\qty{1070}{\milli\ampere} sind dabei der maximal gemessene Strom (bei der Bewegung der Motoren) und nicht der Normalzustand.
+% \qty{1070}{\milli\ampere} sind dabei der maximal gemessene Strom (bei der Bewegung der Motoren) und nicht der Normalzustand.
 
 \subsubsection{Mechanische Umsetzung} % verschoben aus "umsetzung" bzw. "ergebnisse"
 
@@ -139,6 +143,8 @@ Abbildung~\ref{fig:crawler_side} zeigt den Krabbelroboter in der Seitenansicht z
     \caption{Seitliche Ansicht des Krabbelroboters zum Projektabschluss.}
     \label{fig:crawler_side}
 \end{figure}
+
+\pagebreak
 
 \subsection{Software}
 
@@ -228,6 +234,8 @@ Als Schnittstelle zwischen dem ROS-Backend und dem Webinterface dient die Node \
 \textbf{RL-Node:} In dieser Node ist der eigentliche Reinforcement-Learning-Algorithmus implementiert. Sie empfängt die Zustände und Rewards und sendet die daraus resultierende Aktion an die Environment-Node (s. oben). Durch die abstrakte Schnittstellt bleibt die RL-Node modular und kann bei Bedarf, z.B. über das Webinterface, durch alternative Algorithmen ersetzt werden. Die Node wird bei Bedarf mit den gewünschten Parametern über das Webinterface gestartet.
 
 Um den Crawler als Demonstrationsroboter geeignet zu machen, möchten wir den internen Zustand des RL-Algorithmus anschaulich visualisieren. Dazu senden die RL-Environment-Node und die RL-Node ihren internen Zustand, der von der Web-API-Node aggregiert und auf einem WebSocket-Endpoint veröffentlicht wird. 
+
+\pagebreak
 
 \subsubsection{Webinterface}
 
