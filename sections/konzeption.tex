@@ -148,62 +148,40 @@ Die Architektur der Crawler-Software, also die Strukturierung des Codes, war ein
 
 Im Vergleich zur Legacy-Codebase portierten wir das Projekt von ROS 1 zu ROS 2. ROS 2 ist zum Zeitpunkt der Arbeit die neueste Major-Version von ROS und unterstützt modernere Versionen des Ubuntu-Betriebssystems. Dadurch konnten wir das Betriebssystem auf dem Raspberry Pi von Ubuntu 18.04 auf Ubuntu 24.04 upgraden. Support für ROS 1 endete außerdem im Mai 2025, während der Laufzeit des Projekts, und die Legacy-installation hätte keine Updates mehr erhalten. Das Upgrade von ROS 1 auf ROS 2 erfordert einige grundlegendere Veränderungen an einem ROS-Projekt, da wir aber ohnehin eine vollständige Überarbeitung der Codebase anstrebten, bedeutete dies praktischerweise keinen zusätzlichen Aufwand. 
 
-% \subsubsection{Developer Experience}
+\subsubsection{Developer Experience}
 
-% An vorderer Stelle, sowohl in unserer Priorisierung als auch chronologisch im Projektverlauf, stand auch die Verbesserung der Developer Experience (DX), also eine bewusste Investition in einen reibungslosen Entwicklungsprozess, die mit einer geringeren Fehleranfälligkeit, erhöhtem Komfort und einer gesteigerten Entwicklungsgeschwindigkeit für uns und mögliche nachfolgende Teams einhergeht. 
+An vorderer Stelle, sowohl in unserer Priorisierung als auch chronologisch im Projektverlauf, stand auch die Verbesserung der Developer Experience (DX), also eine bewusste Investition in einen reibungslosen Entwicklungsprozess, die mit einer geringeren Fehleranfälligkeit, erhöhtem Komfort und einer gesteigerten Entwicklungsgeschwindigkeit für uns und mögliche nachfolgende Teams einhergeht. 
 
-% Das Legacy-Projekt verfolgte dies bereits mit einem teilweisen Umstieg von Versionskennzeichnungen im Dateinamen zu einer üblichen Versionskontrolle mit Git. Das führten wir weiter und nutzten GitHub zur einfachen Kollaboration. 
+Das Legacy-Projekt verfolgte dies bereits mit einem teilweisen Umstieg von Versionskennzeichnungen im Dateinamen zu einer üblichen Versionskontrolle mit Git. Das führten wir weiter und nutzten GitHub zur einfachen Kollaboration. 
 
-% \textbf{Synchronisierung des Quellcodes}
+\textbf{Synchronisierung des Quellcodes}
 
-% Im Legacy-Projekt wurde der Programmcode direkt auf dem Raspberry Pi entwickelt, der den Roboter steuert. Wir wollten es ermöglichen, den Code lokal etwa auf dem eigenen Laptop zu editieren, um dabei eine vollwertige Entwicklungsumgebung und andere Tools verwenden zu können, für die die Leistung des Raspberry Pi nicht ausreicht. Außerdem ist dies eine logistische Erleichterung, indem der Pi nun während der Entwicklung und des Betriebs nie zwingend an einen Bildschirm angeschlossen werden muss, und mehrere Personen gleichzeitig daran arbeiten können. 
+Im Legacy-Projekt wurde der Programmcode direkt auf dem Raspberry Pi entwickelt, der den Roboter steuert, wir wollten es dagegen ermöglichen, den Code lokal etwa auf dem eigenen Laptop zu editieren. Die Synchronisierung des Codes vom Endgerät auf den Pi erfolgt via SSH oder FTP, wobei \texttt{rsync} für eine beschleunigte Synchronisierung durch das Überspringen unveränderter Dateien genutzt wird. Es muss dafür eine TCP-Verbindung zum Raspberry Pi bestehen, z.\ B. durch ein lokales Netzwerk, unterwegs durch einen mobilen Hotspot oder auch remote durch eine Portfreigabe. Eine weitere Option ist die Nutzung eines SSH Reverse Tunnels über einen öffentlichen Anbieter, sodass kein direktes Routing zum Pi ermöglicht werden muss. 
 
-% Die Synchronisierung des Codes vom Endgerät auf den Pi erfolgt via SSH oder FTP, wobei \texttt{rsync} für eine beschleunigte Synchronisierung durch das Überspringen unveränderter Dateien genutzt wird. Es muss also eine TCP-Verbindung zum Raspberry Pi bestehen, die etwa durch ein lokales Netzwerk, unterwegs durch einen mobilen Hotspot oder auch remote durch eine Portfreigabe hergestellt werden. Eine weitere Option ist die Nutzung eines SSH Reverse Tunnels über einen öffentlichen Anbieter, wodurch lediglich der Internetzugriff durch den Pi und nicht der direkte externe Zugriff auf den SSH-Port des Pi nötig ist, was ggf. unmöglich ist. 
+Der Pi muss so also niemals zwingend über einen Bildschirm verfügen, da das Ausführen der ROS-Startbefehle via SSH und der Zugriff auf das Webinterface via HTTP von einem externen Gerät aus geschieht (gleichzeitig kann natürlich jederzeit auch stattdessen ein Bildschirm bzw. weitere Peripherie direkt angeschlossen werden). Da der Code lokal editiert wird, kann nun auch parallel gearbeitet werden, und dabei eine vollwertige Entwicklungsumgebung und andere Tools verwendet werden, für die die Leistung des Raspberry Pi nicht ausreicht. Sogar ein Teil der Crawler-Software, das Webinterface, kann ohne Probleme bereits lokal gebaut werden, um Build-Zeiten merklich zu verkürzen. 
 
-% Die Notwendigkeit einer Internetverbindung ist eine zusätzliche Unannehmlichkeit, die sich jedoch auszahlen dürfte, da der Pi so nicht über einen Bildschirm verfügen muss, indem das Ausführen der ROS-Startbefehle via SSH und der Zugriff auf das Webinterface via HTTP von einem externen Gerät aus geschieht; jederzeit kann stattdessen auch ein Bildschirm und eine Tastatur angeschlossen werden, um Entwicklung und Betrieb wie gewohnt offline zu ermöglichen. 
+\textbf{Vereinfachter Entwicklungszyklus mit Pixi}
 
-% \textbf{Vereinfachter Entwicklungszyklus mit Pixi}
+Pixi ist ein Tool zur Softwareentwicklung, das die Verwaltung von Software-Bibliotheken vereinfacht und gleichzeitig als Build-System dient. Bibliotheken und Build-Befehle werden von Pixi in einer Textdatei im Projektverzeichnis gespeichert, sodass die gesamte Entwicklungsumgebung unabhängig vom Hostsystem reproduzierbar ist.
 
-% Pixi ist ein Tool zur Softwareentwicklung, das die Verwaltung von Software-Bibliotheken vereinfacht und gleichzeitig als Build-System dient. Bibliotheken und Build-Befehle werden von Pixi in einer Textdatei im Projektverzeichnis gespeichert, sodass die gesamte Entwicklungsumgebung unabhängig vom Hostsystem reproduzierbar ist.
+Der Entwicklungszyklus besteht aus mehreren Schritten, die notwendig sind, um das Programm auf dem Roboter auszuführen, darunter etwas die Synchronisierung des Quellcodes auf den Raspberry Pi oder das korrekte Starten mit einem ROS-Befehl. Mit Pixi kann dieser mehrschrittige Prozess vereinfacht werden, indem die Schritte in komfortablen Pixi-Befehlen wie \texttt{pixi run upload} oder \texttt{pixi run build-web} definiert sind. Im Vergleich zum Vorgängerprojekt ist es so nun außerdem leichter, den Build-Prozess zu dokumentieren. 
 
-% Der Entwicklungszyklus besteht aus mehreren Schritten, die notwendig sind, um das Programm auf dem Roboter auszuführen:
-% \begin{itemize}
-% 	\item Der gesamte Quellcode muss auf den Raspberry Pi synchronisiert werden.
-% 	\item Die Web-Komponente wird mithilfe von npm, einem Build-Tool für JavaScript, zu einer statischen HTML-Datei gebaut. Da dies auf dem Pi ziemlich lange dauert, kann die Web-Komponente auch zuerst lokal auf dem eigenen Rechner gebaut werden, damit die resultierende HTML-Datei direkt auf den Pi synchronisiert werden kann.
-% 	\item Diese HTML-Datei und der Rest des Programms werden mithilfe von ROS zu einem ausführbaren Programm gebündelt.
-% 	\item Dieses Programm wird mit einem ROS-Befehl gestartet.
-% \end{itemize}
+\textbf{Python Type Hints}
 
-% Mit Pixi konnten wir diesen mehrschrittigen Build-Prozess auf dem Roboter stark vereinfachen. Die einzelnen Schritte sind in Pixi-Befehlen wie \texttt{pixi run upload} oder \texttt{pixi run build-web} definiert, was die Arbeit mit der Codebase wesentlich erleichtert. Im Vergleich zum Vorgängerprojekt ist es außerdem nun leichter, den Build-Prozess zu dokumentieren und zu überliefern. Die Befehle zum Starten des Legacy-Programms mussten uns bei der Projektübergabe noch mündlich mitgeteilt werden, da sie in der Legacy-Codebase nicht festgehalten waren. 
+Ein weiterer Schritt in der Verbesserung der Developer Experience war das Hinzufügen sogenannter Type Hints in der Python-Codebase. Als Programmiersprache mit dynamischen Typen passieren in Python schnell Fehler, wenn Variablen bezüglich ihres Typs falsch verwendet werden. Diese können jedoch erst während der Ausführung des Programms entdeckt werden. Type Hints können in einer Codebase hinzugefügt werden, um diese Art der Fehler früher automatisch zu identifizieren. 
 
-% \textbf{Python Type Hints}
+Im einem simplem Beispiel sähen Type Hints folgendermaßen aus:
 
-% Ein weiterer Schritt in der Verbesserung der Developer Experience war das Hinzufügen sogenannter Type Hints in der Python-Codebase. Als Programmiersprache mit dynamischen Typen passieren in Python schnell Fehler, wenn Variablen bezüglich ihres Typs falsch verwendet werden.
+\begin{minted}{python}
+def greet(s: str) -> str:
+	return "Hello " + s
 
-% Der folgende Python-Code produziert bei seiner Ausführung eine Fehlermeldung wegen falsch verwendeter Typen:
+greet(1)
+\end{minted}
 
-% \begin{minted}{python}
-% def greet(s):
-% 	# An dieser Stelle entsteht ein "TypeError".
-% 	return "Hello " + s
+Die hinzugefügten Type Hints geben an, dass die Variable \texttt{s} vom Typ String sein muss, sowie, dass die \texttt{greet}-Funktion einen String als Output produziert. Statt einem \texttt{TypeError} zur Laufzeit wird nun eine entsprechende Warning im Codeeditor angezeigt. 
 
-% greet(1)
-% \end{minted}
-
-% Diese Fehlermeldung kann wegen der dynamischen Funktionsweise von Python jedoch erst während der Ausführung des Programms entdeckt werden. Type Hints können in einer Codebase hinzugefügt werden, um diese Art der Fehler automatisch zu finden und zu korrigieren, ohne dass eine Ausführung des Programms notwendig ist. Durch entsprechendes Tooling in der Arbeitsumgebung kann dieser Prozess nahtlos in den Entwicklungsprozess integriert werden.
-
-% Im gezeigten Python-Code sähen Type Hints folgendermaßen aus:
-
-% \begin{minted}{python}
-% def greet(s: str) -> str:
-% 	return "Hello " + s
-
-% greet(1)
-% \end{minted}
-
-% Die hinzugefügten Type Hints geben an, dass die Variable \texttt{s} vom Typ String sein muss, sowie, dass die \texttt{greet}-Funktion einen String als Output produziert.
-
-% Wir nutzten mypy \cite{mypy}, um die Nutzung von Type Hints strikt durchzusetzen und von ihnen im Entwicklungsprozess Gebrauch zu machen.
+Wir nutzten mypy \cite{mypy}, um die Nutzung von Type Hints strikt durchzusetzen und von ihnen im Entwicklungsprozess Gebrauch zu machen.
 
 \subsubsection{Architektur der ROS-Nodes}
 
