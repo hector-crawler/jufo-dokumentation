@@ -1,5 +1,3 @@
-\pagebreak
-
 \section{Vorgehensweise, Materialien und Methoden}
 \label{sec:konzeption}
 
@@ -78,12 +76,12 @@ Ziel der Weiterentwicklung des übernommenen einbeinigen Krabbelroboters war es,
 
 Diese Zielkriterien bildeten die Grundlage für die Auswahl der Bauteile einschließlich Akku und das mechanische Design des weiterentwickelten Roboters.
 
-\pagebreak
-
 \subsection{Bau des neuen Crawlers} % verschoben von unten
 
 % Dieses Unterkapitel beschreibt die Hardware des neuen Krabbelroboters, die aus den Komponenten des Vorgängerprojekts übernommen wurde, sowie die neuen Komponenten, die für die Weiterentwicklung ausgewählt wurden. Zusätzlich wird der letztendliche mechanische Aufbau des Crawlers erläutert.
 Dieses Unterkapitel beschreibt die übernommenen und neuen Hardwarekomponenten sowie den mechanischen Aufbau des Krabbelroboters.
+
+\pagebreak
 
 \subsubsection{Auswahl der Hauptkomponenten}
 
@@ -143,8 +141,6 @@ Abbildung~\ref{fig:crawler_side} zeigt den Krabbelroboter in der Seitenansicht z
     \caption{Seitliche Ansicht des Krabbelroboters zum Projektabschluss.}
     \label{fig:crawler_side}
 \end{figure}
-
-\pagebreak
 
 \subsection{Software}
 
@@ -234,8 +230,6 @@ Als Schnittstelle zwischen dem ROS-Backend und dem Webinterface dient die Node \
 \textbf{RL-Node:} In dieser Node ist der eigentliche Reinforcement-Learning-Algorithmus implementiert. Sie empfängt die Zustände und Rewards und sendet die daraus resultierende Aktion an die Environment-Node (s. oben). Durch die abstrakte Schnittstellt bleibt die RL-Node modular und kann bei Bedarf, z.B. über das Webinterface, durch alternative Algorithmen ersetzt werden. Die Node wird bei Bedarf mit den gewünschten Parametern über das Webinterface gestartet.
 
 Um den Crawler als Demonstrationsroboter geeignet zu machen, möchten wir den internen Zustand des RL-Algorithmus anschaulich visualisieren. Dazu senden die RL-Environment-Node und die RL-Node ihren internen Zustand, der von der Web-API-Node aggregiert und auf einem WebSocket-Endpoint veröffentlicht wird. 
-
-\pagebreak
 
 \subsubsection{Webinterface}
 
